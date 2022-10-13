@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,32 +12,45 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _checkGroundTransform;
     [SerializeField] private float _checkGroundRadius;
     [SerializeField] private LayerMask _checkGroundMask;
-    
+
+    [Header("Jump")]
+    [SerializeField] private float _jumpHeight = 2f;
+
+    private Vector3 _fallVector;
+    private Transform _cachedTransform;
+
+    private void Awake()
+    {
+        _cachedTransform = transform;
+    }
+
     private void Update()
-   {
-       float horizontal = Input.GetAxis("Horizontal");
-       float vertical = Input.GetAxis("Vertical");
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-       Vector3 moveVector = transform.right * horizontal + transform.forward * vertical;
-       moveVector *= (_speed * Time.deltaTime);
-       
-       _controller.Move(moveVector);
+        Vector3 moveVector = _cachedTransform.right * horizontal + _cachedTransform.forward * vertical;
+        moveVector *= (_speed * Time.deltaTime);
 
-       bool isGrounded = Physics.CheckSphere(_checkGroundTransform.position, _checkGroundRadius, _checkGroundMask);
-       Debug.LogError($"IsGrounded {isGrounded}");
-       Vector3 fallVector =Vector3.zero;
-       
-       if (isGrounded && Input.GetButtonDown("Jump"))
-       {
-           
-       }
-       
+        _controller.Move(moveVector);
 
-       float gravity = Physics.gravity.y*_gravityMultiplier;
-       fallVector.y += gravity* Time.deltaTime;
+        bool isGrounded = Physics.CheckSphere(_checkGroundTransform.position, _checkGroundRadius, _checkGroundMask);
+        Debug.LogError($"IsGrounded {isGrounded}");
 
-       _controller.Move(fallVector);
-       
+        if (isGrounded && _fallVector.y < 0)
+        {
+            _fallVector.y = 0;
+        }
 
-   }
+        float gravity = Physics.gravity.y * _gravityMultiplier;
+
+        if (isGrounded && Input.GetButtonDown("Jump"))
+        {
+            _fallVector.y = Mathf.Sqrt(_jumpHeight * -2f * gravity);
+        }
+
+        _fallVector.y += gravity * Time.deltaTime;
+
+        _controller.Move(_fallVector * Time.deltaTime);
+    }
 }
