@@ -1,7 +1,8 @@
-﻿using UnityEditor;
+﻿using P3D.Game.Utility;
+using UnityEditor;
 using UnityEngine;
 
-namespace Game.Objects.Editor
+namespace P3D.Game.Objects.Editor
 {
     [CustomEditor(typeof(MovingObject))]
     public class MovingObjectEditor : UnityEditor.Editor
@@ -12,25 +13,38 @@ namespace Game.Objects.Editor
             if (!ShouldDraw(movingObject, gizmoType))
                 return;
 
-            if (movingObject.FromTransform == null || movingObject.ToTransform == null)
+            if (IsNotValid(movingObject))
                 return;
 
             Gizmos.color = Color.red;
-            var fromTransformPosition = movingObject.FromTransform.position;
-            var toTransformPosition = movingObject.ToTransform.position;
-
-            Gizmos.DrawSphere(fromTransformPosition, 0.4f);
-            Gizmos.DrawSphere(toTransformPosition, 0.4f);
+            foreach (Transform point in movingObject.Points)
+            {
+                Gizmos.DrawSphere(point.position, 0.4f);
+            }
 
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(fromTransformPosition, toTransformPosition);
+            Transform previousPoint = movingObject.Points.First();
+            for (int i = 1; i < movingObject.Points.Count; i++)
+            {
+                Transform point = movingObject.Points[i];
+                Gizmos.DrawLine(previousPoint.position, point.position);
+                previousPoint = point;
+            }
+
+            Gizmos.DrawLine(previousPoint.position, movingObject.Points.First().position);
+        }
+
+        private static bool IsNotValid(MovingObject movingObject)
+        {
+            // TODO: Check null ref in loop
+            return movingObject.Points == null || movingObject.Points.Count < 2;
         }
 
         private static bool ShouldDraw(MovingObject movingObject, GizmoType gizmoType)
         {
             if (gizmoType == GizmoType.Selected)
                 return true;
-            
+
             Transform parent = movingObject.transform.parent;
             if (parent == Selection.activeTransform)
                 return true;

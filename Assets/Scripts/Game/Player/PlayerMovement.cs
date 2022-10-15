@@ -1,56 +1,57 @@
-using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace P3D.Game.Player
 {
-    [Header("Base Settings")]
-    [SerializeField] private float _speed = 3f;
-    [SerializeField] private CharacterController _controller;
-    [SerializeField] private float _gravityMultiplier = 1f;
-
-    [Header("Grounded")]
-    [SerializeField] private Transform _checkGroundTransform;
-    [SerializeField] private float _checkGroundRadius;
-    [SerializeField] private LayerMask _checkGroundMask;
-
-    [Header("Jump")]
-    [SerializeField] private float _jumpHeight = 2f;
-
-    private Vector3 _fallVector;
-    private Transform _cachedTransform;
-
-    private void Awake()
+    public class PlayerMovement : MonoBehaviour
     {
-        _cachedTransform = transform;
-    }
+        [Header("Base Settings")]
+        [SerializeField] private float _speed = 3f;
+        [SerializeField] private CharacterController _controller;
+        [SerializeField] private float _gravityMultiplier = 1f;
 
-    private void Update()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        [Header("Grounded")]
+        [SerializeField] private Transform _checkGroundTransform;
+        [SerializeField] private float _checkGroundRadius;
+        [SerializeField] private LayerMask _checkGroundMask;
 
-        Vector3 moveVector = _cachedTransform.right * horizontal + _cachedTransform.forward * vertical;
-        moveVector *= (_speed * Time.deltaTime);
+        [Header("Jump")]
+        [SerializeField] private float _jumpHeight = 2f;
 
-        _controller.Move(moveVector);
+        private Vector3 _fallVector;
+        private Transform _cachedTransform;
 
-        bool isGrounded = Physics.CheckSphere(_checkGroundTransform.position, _checkGroundRadius, _checkGroundMask);
-        Debug.LogError($"IsGrounded {isGrounded}");
-
-        if (isGrounded && _fallVector.y < 0)
+        private void Awake()
         {
-            _fallVector.y = 0;
+            _cachedTransform = transform;
         }
 
-        float gravity = Physics.gravity.y * _gravityMultiplier;
-
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        private void Update()
         {
-            _fallVector.y = Mathf.Sqrt(_jumpHeight * -2f * gravity);
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            Vector3 moveVector = _cachedTransform.right * horizontal + _cachedTransform.forward * vertical;
+            moveVector *= (_speed * Time.deltaTime);
+
+            _controller.Move(moveVector);
+
+            bool isGrounded = Physics.CheckSphere(_checkGroundTransform.position, _checkGroundRadius, _checkGroundMask);
+            
+            if (isGrounded && _fallVector.y < 0)
+            {
+                _fallVector.y = 0;
+            }
+
+            float gravity = Physics.gravity.y * _gravityMultiplier;
+
+            if (isGrounded && Input.GetButtonDown("Jump"))
+            {
+                _fallVector.y = Mathf.Sqrt(_jumpHeight * -2f * gravity);
+            }
+
+            _fallVector.y += gravity * Time.deltaTime;
+
+            _controller.Move(_fallVector * Time.deltaTime);
         }
-
-        _fallVector.y += gravity * Time.deltaTime;
-
-        _controller.Move(_fallVector * Time.deltaTime);
     }
 }

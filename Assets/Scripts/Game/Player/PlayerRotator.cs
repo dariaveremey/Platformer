@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace P3D.Game.Player
 {
     public class PlayerRotator: MonoBehaviour
     {
