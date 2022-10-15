@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 namespace P3D.Game
 {
@@ -12,6 +13,7 @@ namespace P3D.Game
 
         [Header("Initial Settings")]
         [SerializeField] private bool _needPlayOnStart = true;
+        [SerializeField] private bool _isButtonClicked = true;
         [SerializeField] private bool _isLoop = true;
 
         [Header("Animation Settings")]
@@ -22,9 +24,11 @@ namespace P3D.Game
         private Tween _tween;
 
         public List<Transform> Points => _points;
-
+        
         private void Awake()
         {
+            ButtonArea.OnButtonClicked += IsButtonClicked;
+
             if (!IsValid())
                 return;
 
@@ -39,7 +43,13 @@ namespace P3D.Game
             if (_needPlayOnStart)
                 Move();
         }
+        
 
+        private void OnDestroy()
+        {
+            ButtonArea.OnButtonClicked -= IsButtonClicked;
+        }
+        
         public void Move()
         {
             _tween?.Kill(true);
@@ -66,10 +76,21 @@ namespace P3D.Game
             if (_isLoop)
                 sequence.SetLoops(-1);
 
+            if (!_isButtonClicked)
+                sequence.SetLoops(1);
+            
             _tween = sequence;
         }
 
         private bool IsValid() =>
             _points != null && _points.Count > 1;
+
+        private void IsButtonClicked(bool currentState)
+        {
+            _isButtonClicked = currentState;
+            
+            if(!_isButtonClicked)
+                Move();
+        }
     }
 }
