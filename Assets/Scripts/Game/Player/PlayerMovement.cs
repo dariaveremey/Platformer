@@ -36,7 +36,7 @@ namespace P3D.Game.Player
             _controller.Move(moveVector);
 
             bool isGrounded = Physics.CheckSphere(_checkGroundTransform.position, _checkGroundRadius, _checkGroundMask);
-            
+
             if (isGrounded && _fallVector.y < 0)
             {
                 _fallVector.y = 0;

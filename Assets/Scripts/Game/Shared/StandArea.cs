@@ -6,7 +6,10 @@ namespace P3D.Game
     [RequireComponent(typeof(Collider))]
     public class StandArea : MonoBehaviour
     {
+        [SerializeField] private bool _needTrigger;
         private Transform _previousParent;
+
+        public static Action OnStepStood;
 
         private void Awake()
         {
@@ -21,6 +24,8 @@ namespace P3D.Game
 
             _previousParent = other.transform.parent;
             other.transform.SetParent(transform);
+            if (_needTrigger)
+                OnStepStood?.Invoke();
         }
 
         private void OnTriggerExit(Collider other)

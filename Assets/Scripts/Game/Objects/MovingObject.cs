@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
@@ -13,21 +12,23 @@ namespace P3D.Game
 
         [Header("Initial Settings")]
         [SerializeField] private bool _needPlayOnStart = true;
-        [SerializeField] private bool _isButtonClicked = true;
         [SerializeField] private bool _isLoop = true;
 
         [Header("Animation Settings")]
-        [SerializeField] private float _delayInPosition = 1f;
-        [SerializeField] private float _duration = 1f;
-        [SerializeField] private Ease _ease;
+        [SerializeField] protected float _delayInPosition = 1f;
+        [SerializeField] protected float _duration = 1f;
+        [SerializeField] protected int _animationIndex = -1;
+        [SerializeField] protected Ease _ease;
 
         private Tween _tween;
+        private Tween _tweenButton;
 
         public List<Transform> Points => _points;
-        
+
         private void Awake()
         {
-            ButtonArea.OnButtonClicked += IsButtonClicked;
+            ButtonArea.OnButtonClicked += Move;
+            StandArea.OnStepStood += Move;
 
             if (!IsValid())
                 return;
@@ -40,16 +41,17 @@ namespace P3D.Game
             if (!IsValid())
                 return;
 
-            if (_needPlayOnStart)
+            if (_needPlayOnStart && _isLoop)
                 Move();
         }
-        
 
         private void OnDestroy()
         {
-            ButtonArea.OnButtonClicked -= IsButtonClicked;
+            ButtonArea.OnButtonClicked -= Move;
+
+            StandArea.OnStepStood -= Move;
         }
-        
+
         public void Move()
         {
             _tween?.Kill(true);
@@ -73,24 +75,11 @@ namespace P3D.Game
             sequence
                 .SetUpdate(UpdateType.Fixed);
 
-            if (_isLoop)
-                sequence.SetLoops(-1);
-
-            if (!_isButtonClicked)
-                sequence.SetLoops(1);
-            
+            sequence.SetLoops(_animationIndex);
             _tween = sequence;
         }
 
         private bool IsValid() =>
             _points != null && _points.Count > 1;
-
-        private void IsButtonClicked(bool currentState)
-        {
-            _isButtonClicked = currentState;
-            
-            if(!_isButtonClicked)
-                Move();
-        }
     }
 }

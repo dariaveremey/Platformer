@@ -1,7 +1,7 @@
 ﻿using P3D.Game.Utility;
 using UnityEditor;
 using UnityEngine;
-/*
+
 namespace P3D.Game.Objects.Editor
 {
     [CustomEditor(typeof(MovingObject))]
@@ -58,4 +58,4 @@ namespace P3D.Game.Objects.Editor
             return false;
         }
     }
-}*/
+}

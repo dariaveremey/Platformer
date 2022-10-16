@@ -2,7 +2,7 @@
 
 namespace P3D.Game.Player
 {
-    public class PlayerRotator: MonoBehaviour
+    public class PlayerRotator : MonoBehaviour
     {
         [SerializeField] private float _speed = 0.1f;
         private Vector3 _previousMousePosition;
@@ -17,7 +17,7 @@ namespace P3D.Game.Player
             Vector3 mousePosition = Input.mousePosition;
             Vector3 delta = _previousMousePosition - mousePosition;
             float rotationDelta = delta.x;
-            transform.Rotate(transform.up,rotationDelta*_speed*Time.deltaTime);
+            transform.Rotate(transform.up, rotationDelta * _speed * Time.deltaTime);
             _previousMousePosition = mousePosition;
         }
     }
