@@ -27,9 +27,6 @@ namespace P3D.Game
 
         private void Awake()
         {
-            ButtonArea.OnButtonClicked += Move;
-            StandArea.OnStepStood += Move;
-
             if (!IsValid())
                 return;
 
@@ -45,12 +42,8 @@ namespace P3D.Game
                 Move();
         }
 
-        private void OnDestroy()
-        {
-            ButtonArea.OnButtonClicked -= Move;
-
-            StandArea.OnStepStood -= Move;
-        }
+        private bool IsValid() =>
+            _points != null && _points.Count > 1;
 
         public void Move()
         {
@@ -79,7 +72,9 @@ namespace P3D.Game
             _tween = sequence;
         }
 
-        private bool IsValid() =>
-            _points != null && _points.Count > 1;
+        public void Shake()
+        {
+            transform.DOShakePosition(3f, 1, 10, 50, false, false);
+        }
     }
 }

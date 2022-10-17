@@ -51,7 +51,7 @@ namespace P3D.Game.Objects.Editor
 
             if (parent == null)
                 return false;
-            
+
             for (int i = 0; i < parent.childCount; i++)
             {
                 if (parent.GetChild(i) == Selection.activeTransform)
