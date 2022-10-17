@@ -7,6 +7,7 @@ namespace P3D.Game
     public class StandArea : MonoBehaviour
     {
         [SerializeField] private bool _needTrigger;
+        
         private Transform _previousParent;
 
         public static Action OnStepStood;
