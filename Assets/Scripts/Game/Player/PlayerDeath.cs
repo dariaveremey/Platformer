@@ -6,16 +6,11 @@ namespace P3D.Game.Player
     {
         [Header("Particle")]
         [SerializeField] private GameObject _particle;
-
-        private void Awake()
+        
+        public void Dead()
         {
-            DeathZone.OnDead += SpawnVfx;
-        }
-
-        private void OnDisable()
-        {
-            DeathZone.OnDead -= SpawnVfx;
-        }
+            SpawnVfx();
+    }
 
         private void SpawnVfx()
         {

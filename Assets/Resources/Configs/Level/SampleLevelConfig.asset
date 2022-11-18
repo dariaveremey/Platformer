@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ed9b8fc15c443c916feb16335a981d, type: 3}
+  m_Name: SampleLevelConfig
+  m_EditorClassIdentifier: 
+  _sceneName: SampleScene
+  _enemiesSpawnData:
+  - Id: EnemySpawPoint_3e5b4d14-fff3-44b5-907f-3b622799a424
+    Position: {x: 5.74, y: 0, z: 8.47}
+    Type: 2
+  - Id: EnemySpawPoint (2)_f71f2c79-d5fc-4c63-8734-4b6bb863bebb
+    Position: {x: 5.74, y: 0, z: 0}
+    Type: 3
+  - Id: EnemySpawPoint (1)_30138fb8-e64e-4346-b136-217b32b5de2c
+    Position: {x: 14.09, y: 0, z: 0}
+    Type: 1

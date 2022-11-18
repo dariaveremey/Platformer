@@ -7,15 +7,25 @@ namespace P3D.Game
     public class ButtonArea : MonoBehaviour
     {
         [SerializeField] private MovingObject _movingGameObject;
-        [SerializeField] private float _pushingButton = 0.21f;
+        [SerializeField] private float _movingButtonYDelta = 0.21f;
+
+        private Tween _animation;
+        private float _startPosition;
+        private float _endPosition;
+
+        private void Awake()
+        {
+            _startPosition = transform.position.y;
+            _endPosition = _startPosition - _movingButtonYDelta;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            SwitchOn();
-            StartCoroutine(WaitCoroutine());
+            _animation?.Kill();
+            _animation = transform.DOMoveY(_endPosition, 1);
         }
 
         private void OnTriggerExit(Collider other)
@@ -23,7 +33,12 @@ namespace P3D.Game
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            SwitchOff();
+            _animation?.Kill();
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOMoveY(_startPosition, 1));
+            sequence.AppendInterval(3);
+            //sequence.OnComplete(() => _movingGameObject.MoveInverse());
+            _animation = sequence;
         }
 
         private IEnumerator WaitCoroutine()
@@ -33,16 +48,6 @@ namespace P3D.Game
             yield return new WaitForSeconds(2);
 
             _movingGameObject.Move();
-        }
-
-        private void SwitchOn()
-        {
-            transform.DOMoveY(transform.position.y - (_pushingButton), 1);
-        }
-
-        private void SwitchOff()
-        {
-            transform.DOMoveY(transform.position.y + (_pushingButton), 1);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using P3D.Game.Player;
 using UnityEngine;
 
 namespace P3D.Game
@@ -14,13 +15,14 @@ namespace P3D.Game
             if (!other.CompareTag(Tags.Player))
                 return;
 
-            StartCoroutine(WaitCoroutine());
+            StartCoroutine(WaitCoroutine(other.GetComponent<PlayerDeath>()));
         }
 
-        IEnumerator WaitCoroutine()
+        IEnumerator WaitCoroutine(PlayerDeath playerDeath)
         {
-            OnDead?.Invoke();
 
+            playerDeath.Dead();
+            
             yield return new WaitForSeconds(1);
 
             Reloader.Reload();
