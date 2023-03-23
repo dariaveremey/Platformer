@@ -10,7 +10,7 @@ namespace P3D.Game.Player
         public void Dead()
         {
             SpawnVfx();
-    }
+        }
 
         private void SpawnVfx()
         {

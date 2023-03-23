@@ -1,4 +1,4 @@
-﻿using P3D.Game.Utility;
+﻿using Game.Utility;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,8 +36,12 @@ namespace P3D.Game.Objects.Editor
 
         private static bool IsNotValid(MovingObject movingObject)
         {
-            // TODO: Check null ref in loop
-            return movingObject.Points == null || movingObject.Points.Count < 2;
+            foreach (Transform point in movingObject.Points)
+            {
+                if (point == null)
+                    return true;
+            }
+            return movingObject.Points.Count < 2;
         }
 
         private static bool ShouldDraw(MovingObject movingObject, GizmoType gizmoType)

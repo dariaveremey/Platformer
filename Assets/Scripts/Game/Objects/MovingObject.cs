@@ -17,11 +17,9 @@ namespace P3D.Game
         [Header("Animation Settings")]
         [SerializeField] protected float _delayInPosition = 1f;
         [SerializeField] protected float _duration = 1f;
-        [SerializeField] protected int _animationIndex = -1;
         [SerializeField] protected Ease _ease;
 
         private Tween _tween;
-        private Tween _tweenButton;
 
         public List<Transform> Points => _points;
 
@@ -38,7 +36,7 @@ namespace P3D.Game
             if (!IsValid())
                 return;
 
-            if (_needPlayOnStart && _isLoop)
+            if (_needPlayOnStart)
                 Move();
         }
 
@@ -68,13 +66,10 @@ namespace P3D.Game
             sequence
                 .SetUpdate(UpdateType.Fixed);
 
-            sequence.SetLoops(_animationIndex);
+            if (_isLoop)
+                sequence.SetLoops(-1);
+            
             _tween = sequence;
-        }
-
-        public void Shake()
-        {
-            transform.DOShakePosition(3f, 1, 10, 50, false, false);
         }
     }
 }

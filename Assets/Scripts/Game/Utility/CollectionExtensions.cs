@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace P3D.Game.Utility
+namespace Game.Utility
 {
     public static class CollectionExtensions
     {
