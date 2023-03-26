@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneName: SampleScene
   _enemiesSpawnData:
-  - Id: EnemySpawPoint_3e5b4d14-fff3-44b5-907f-3b622799a424
-    Position: {x: 5.74, y: 0, z: 8.47}
-    Type: 2
-  - Id: EnemySpawPoint (2)_f71f2c79-d5fc-4c63-8734-4b6bb863bebb
-    Position: {x: 5.74, y: 0, z: 0}
-    Type: 3
   - Id: EnemySpawPoint (1)_30138fb8-e64e-4346-b136-217b32b5de2c
-    Position: {x: 14.09, y: 0, z: 0}
+    Position: {x: 14.09, y: 0.45, z: -7.1}
     Type: 1
+  - Id: EnemySpawPoint (2)_f71f2c79-d5fc-4c63-8734-4b6bb863bebb
+    Position: {x: 5.74, y: 0.45, z: -10.1}
+    Type: 3
+  - Id: EnemySpawPoint_3e5b4d14-fff3-44b5-907f-3b622799a424
+    Position: {x: 5.74, y: 0.45, z: 8.47}
+    Type: 2

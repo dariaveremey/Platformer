@@ -14,7 +14,7 @@ namespace Gamekit3D
 
         protected readonly GUIContent m_NameContent = new GUIContent("New Scene Name");
 
-        [MenuItem("Kit Tools/Create New Scene...", priority = 100)]
+        [MenuItem("Kit Tools/CreateEnemy New Scene...", priority = 100)]
         static void Init()
         {
             NewSceneCreator window = GetWindow<NewSceneCreator>();
@@ -25,7 +25,7 @@ namespace Gamekit3D
         {
             m_NewSceneName = EditorGUILayout.TextField(m_NameContent, m_NewSceneName);
 
-            if (GUILayout.Button("Create"))
+            if (GUILayout.Button("CreateEnemy"))
                 CheckAndCreateScene();
         }
 

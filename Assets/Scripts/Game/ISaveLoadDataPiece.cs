@@ -2,9 +2,9 @@
 
 namespace Game
 {
-    public interface ISaveLoadDataPiece
+    public interface ISaveLoadDataPiece:ILoadDataPiece
     {
         void Save(PersistenceData data);
-        void Load(PersistenceData data);
+        //void Load(PersistenceData data);
     }
 }

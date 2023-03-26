@@ -7,7 +7,5 @@ namespace Services.Persistente
     {
         public string Id;
         public int Hp;
-
-     
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Services.Save;
+﻿using Services.Save;
 using UnityEngine;
 
 namespace P3D.Game
@@ -10,7 +9,6 @@ namespace P3D.Game
         {
             Debug.LogError($"Perform saving.");
             SaveLoadService.Instance.Save();
-            
         }
     }
 }

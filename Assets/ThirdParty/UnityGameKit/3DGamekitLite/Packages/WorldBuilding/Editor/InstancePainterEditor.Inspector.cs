@@ -10,7 +10,7 @@ namespace Gamekit3D.WorldBuilding
 
     public partial class InstancePainterEditor : Editor
     {
-        [MenuItem("GameObject/Create Other/Instance Painter")]
+        [MenuItem("GameObject/CreateEnemy Other/Instance Painter")]
         static void CreateInstancePainter()
         {
             var g = new GameObject("Instance Painter", typeof(InstancePainter));

@@ -55,7 +55,7 @@ namespace Gamekit3D
                 if (Physics.Raycast(ray, out hit))
                 {
                     var g = new GameObject("Checkpoint (" + children.Length + ")", typeof(SphereCollider), typeof(Checkpoint));
-                    Undo.RegisterCreatedObjectUndo(g, "Create Checkpoint");
+                    Undo.RegisterCreatedObjectUndo(g, "CreateEnemy Checkpoint");
                     g.transform.position = hit.point;
                     g.transform.parent = cpg.transform;
                     var sc = g.GetComponent<SphereCollider>();

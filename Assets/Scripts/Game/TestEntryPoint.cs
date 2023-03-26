@@ -7,34 +7,35 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
-    public class TestEntryPoint:MonoBehaviour
+    public class TestEntryPoint : MonoBehaviour
     {
         [SerializeField] private EnemyFactory _enemyFactory;
+
         private void Start()
         {
             Init();
-            SpawnAllEnemies();
+            CreateEnemySpawners();
             LoadDataToAll();
         }
-        
 
         private void Init()
         {
             PersistenceService.Instance.Bootstrap();
             ConfigService.Instance.Bootstrap();
         }
-        private void LoadDataToAll()
-        {
-            SaveLoadService.Instance.Load();
-        }
-        private void SpawnAllEnemies()
+
+        private void CreateEnemySpawners()
         {
             LevelConfig levelConfig = ConfigService.Instance.GetLevelConfig(SceneManager.GetActiveScene().name);
             foreach (EnemySpawnData enemySpawnData in levelConfig.EnemiesSpawnData)
             {
-                _enemyFactory.Create(enemySpawnData.Id, enemySpawnData.Type, enemySpawnData.Position);
+                _enemyFactory.CreateSpawner(enemySpawnData.Id, enemySpawnData.Type, enemySpawnData.Position);
             }
+        }
+
+        private void LoadDataToAll()
+        {
+            SaveLoadService.Instance.Load();
         }
     }
 }
-

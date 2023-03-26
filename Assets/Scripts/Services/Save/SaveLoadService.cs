@@ -8,7 +8,7 @@ namespace Services.Save
     public class SaveLoadService : MonoBehaviour
     {
         private static SaveLoadService _instance;
-        private List<ISaveLoadDataPiece> _saveLoadDataPieces = new List<ISaveLoadDataPiece>();
+        private readonly List<ISaveLoadDataPiece> _saveLoadDataPieces = new List<ISaveLoadDataPiece>();
 
         public static SaveLoadService Instance => _instance;
 

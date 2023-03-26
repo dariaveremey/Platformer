@@ -1,6 +1,4 @@
-﻿using Game.Enemy;
-using NaughtyAttributes;
-using Services.Config;
+﻿using Services.Config;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = Tag, menuName = "Configs/Level")]

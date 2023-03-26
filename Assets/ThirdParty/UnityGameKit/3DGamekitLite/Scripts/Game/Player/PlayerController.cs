@@ -315,7 +315,7 @@ namespace Gamekit3D
         // Called each physics step to set the rotation Ellen is aiming to have.
         void SetTargetRotation()
         {
-            // Create three variables, move input local to the player, flattened forward direction of the camera and a local target rotation.
+            // CreateEnemy three variables, move input local to the player, flattened forward direction of the camera and a local target rotation.
             Vector2 moveInput = m_Input.MoveInput;
             Vector3 localMovementDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
             

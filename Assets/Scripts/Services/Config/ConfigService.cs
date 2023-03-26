@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Enemy;
+using Services.Assets;
 using UnityEngine;
 
 namespace Services.Config
@@ -8,8 +9,7 @@ namespace Services.Config
     public class ConfigService : MonoBehaviour
     {
         private const string Tag = nameof(ConfigService);
-        private const string EnemiesConfigsPath = "Configs/Enemies";
-        private const string LevelConfigsPath = "Configs/Level";
+      
         private static ConfigService _instance;
 
         private Dictionary<EnemyType, EnemyConfig> _enemyConfigsByType;
@@ -30,9 +30,11 @@ namespace Services.Config
 
         public void Bootstrap()
         {
-            _enemyConfigsByType = Resources.LoadAll<EnemyConfig>(EnemiesConfigsPath)
+            _enemyConfigsByType = Resources
+                .LoadAll<EnemyConfig>(AssetPath.EnemiesConfigsPath)
                 .ToDictionary(x => x.EnemyType, x => x);
-            _levelConfigBySceneName = Resources.LoadAll<LevelConfig>(LevelConfigsPath)
+            _levelConfigBySceneName = Resources
+                .LoadAll<LevelConfig>(AssetPath.LevelConfigsPath)
                 .ToDictionary(x => x.SceneName, x => x);
         }
 

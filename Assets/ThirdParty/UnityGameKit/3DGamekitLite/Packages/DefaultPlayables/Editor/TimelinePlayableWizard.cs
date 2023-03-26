@@ -469,7 +469,7 @@ public class TimelinePlayableWizard : EditorWindow
     readonly GUIContent m_ExposedReferencesContent = new GUIContent("Exposed References", "Exposed References are references to objects in a scene that your Playable needs. For example, if you want to tween between two Transforms, they will need to be Exposed References.");
     readonly GUIContent m_BehaviourVariablesContent = new GUIContent("Behaviour Variables", "Behaviour Variables are all the variables you wish to use in your playable that do NOT need a reference to something in a scene.  For example a float for speed.");
     readonly GUIContent m_TrackColorContent = new GUIContent("Track Color", "Timeline tracks have a colored outline, use this to select that color for your track.");
-    readonly GUIContent m_CreateDrawerContent = new GUIContent("Create Drawer?", "Checking this box will enable the creation of a PropertyDrawer for your playable.  Having this script will make it easier to customise how your playable appears in the inspector.");
+    readonly GUIContent m_CreateDrawerContent = new GUIContent("CreateEnemy Drawer?", "Checking this box will enable the creation of a PropertyDrawer for your playable.  Having this script will make it easier to customise how your playable appears in the inspector.");
     readonly GUIContent m_StandardBlendPlayablePropertiesContent = new GUIContent("Standard Blend Playable Properties", "Having already selected a Track Binding type, you can select the properties of the bound component you want the playable to affect.  For example, if your playable is bound to a Transform, you can affect the position property.  Note that changing the component binding will clear the list of properties.");
     readonly GUIContent m_ClipCapsContent = new GUIContent("Clip Caps", "Clip Caps are used to change the way Timelines work with your playables.  For example, enabling Blending will mean that your playables can blend when they overlap and have ease in and out durations.  To find out a little about each hover the cursor over the options.  For details, please see the documentation.");
     readonly GUIContent m_CCNoneContent = new GUIContent("None", "Your playable supports none of the features below.");
@@ -733,7 +733,7 @@ public class TimelinePlayableWizard : EditorWindow
         
         if (playableNameNotEmpty && playableNameFormatted && allUniqueVariableNames && exposedVariablesNamesValid && scriptVariablesNamesValid && !playableNameTooLong)
         {
-            if (GUILayout.Button("Create", GUILayout.Width(60f)))
+            if (GUILayout.Button("CreateEnemy", GUILayout.Width(60f)))
             {
                 m_CreateButtonPressed = true;
 
@@ -1188,7 +1188,7 @@ public class TimelinePlayableWizard : EditorWindow
             "{\n" +
             k_Tab + "public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)\n" +
             k_Tab + "{\n" +
-            k_Tab + k_Tab + "return ScriptPlayable<" + playableName + k_PlayableBehaviourMixerSuffix + ">.Create (graph, inputCount);\n" +
+            k_Tab + k_Tab + "return ScriptPlayable<" + playableName + k_PlayableBehaviourMixerSuffix + ">.CreateEnemy (graph, inputCount);\n" +
             k_Tab + "}\n" +
             "}\n";
     }
@@ -1215,7 +1215,7 @@ public class TimelinePlayableWizard : EditorWindow
             "\n" +
             k_Tab + "public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)\n" +
             k_Tab + "{\n" +
-            k_Tab + k_Tab + "var playable = ScriptPlayable<" + playableName + k_TimelineClipBehaviourSuffix + ">.Create (graph, template);\n" +
+            k_Tab + k_Tab + "var playable = ScriptPlayable<" + playableName + k_TimelineClipBehaviourSuffix + ">.CreateEnemy (graph, template);\n" +
             ExposedReferencesResolvingToString () +
             k_Tab + k_Tab + "return playable;\n" +
             k_Tab + "}\n" +
@@ -1467,7 +1467,7 @@ public class TimelinePlayableWizard : EditorWindow
             "\n" +
             k_Tab + "public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)\n" +
             k_Tab + "{\n" +
-            k_Tab + k_Tab + "var playable = ScriptPlayable<" + playableName + k_TimelineClipBehaviourSuffix + ">.Create (graph, template);\n" +
+            k_Tab + k_Tab + "var playable = ScriptPlayable<" + playableName + k_TimelineClipBehaviourSuffix + ">.CreateEnemy (graph, template);\n" +
             k_Tab + k_Tab + "return playable;\n" +
             k_Tab + "}\n" +
             "}\n";
@@ -1572,7 +1572,7 @@ public class TimelinePlayableWizard : EditorWindow
             "{\n" +
             k_Tab + "public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)\n" +
             k_Tab + "{\n" +
-            k_Tab + k_Tab + "return ScriptPlayable<" + playableName + k_PlayableBehaviourMixerSuffix + ">.Create (graph, inputCount);\n" +
+            k_Tab + k_Tab + "return ScriptPlayable<" + playableName + k_PlayableBehaviourMixerSuffix + ">.CreateEnemy (graph, inputCount);\n" +
             k_Tab + "}\n" +
             "\n" +
             k_Tab + "public override void GatherProperties (PlayableDirector director, IPropertyCollector driver)\n" +

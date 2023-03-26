@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
 namespace P3D.Game.Objects.Editor
@@ -24,7 +22,7 @@ namespace P3D.Game.Objects.Editor
             {
                 UniqueId[] allUniqueIds = FindObjectsOfType<UniqueId>();
                 if (allUniqueIds.Any(x => x != uniqueId && x.Id == uniqueId.Id))
-                    Generate(uniqueId);
+                    Generate(uniqueId);     
             }
         }
 

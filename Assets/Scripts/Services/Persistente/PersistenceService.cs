@@ -26,7 +26,7 @@ namespace Services.Persistente
 
         public void Bootstrap()
         {
-            var json = PlayerPrefs.GetString(DataSaveKey);
+            string json = PlayerPrefs.GetString(DataSaveKey);
             if (string.IsNullOrEmpty(json))
             {
                 Data = new PersistenceData();

@@ -14,10 +14,10 @@ public class PaletteWizard : ScriptableWizard
     Texture2D _sourceImage;
     float totalWorkToComplete, totalWork;
 
-    [MenuItem("Assets/Create/Palette Wizard")]
+    [MenuItem("Assets/CreateEnemy/Palette Wizard")]
     static void CreateWizard()
     {
-        ScriptableWizard.DisplayWizard<PaletteWizard>("Create Palette Textures", "Save Textures", "Refresh");
+        ScriptableWizard.DisplayWizard<PaletteWizard>("CreateEnemy Palette Textures", "Save Textures", "Refresh");
     }
 
     void OnEnable()
