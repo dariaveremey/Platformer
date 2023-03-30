@@ -3,29 +3,20 @@ using UnityEngine;
 
 namespace Services.Persistente
 {
-    public class PersistenceService : MonoBehaviour
+    public class PersistenceService : IPersistenceService
     {
         private const string Tag = nameof(PersistenceService);
         private const string DataSaveKey = "Game/PersistenceData";
-        private static PersistenceService _instance;
-        public static PersistenceService Instance => _instance;
-
         public PersistenceData Data { get; private set; }
 
-        private void Awake()
+        public PersistenceService()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            Debug.LogError($"Persistant Service");
         }
 
         public void Bootstrap()
         {
+            Debug.LogError($"Persistant Bootstrap");
             string json = PlayerPrefs.GetString(DataSaveKey);
             if (string.IsNullOrEmpty(json))
             {
@@ -39,8 +30,8 @@ namespace Services.Persistente
                 }
                 catch (Exception e)
                 {
-                   Debug.Log($"[{Tag},[{nameof(Bootstrap)}Can't deserialize data.Exception {e}]");
-                   Data = new PersistenceData();
+                    Debug.Log($"[{Tag},[{nameof(Bootstrap)}Can't deserialize data.Exception {e}]");
+                    Data = new PersistenceData();
                 }
             }
         }

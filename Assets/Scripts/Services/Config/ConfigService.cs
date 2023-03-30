@@ -6,27 +6,11 @@ using UnityEngine;
 
 namespace Services.Config
 {
-    public class ConfigService : MonoBehaviour
+    public class ConfigService : IConfigService
     {
         private const string Tag = nameof(ConfigService);
-      
-        private static ConfigService _instance;
-
         private Dictionary<EnemyType, EnemyConfig> _enemyConfigsByType;
         private Dictionary<string, LevelConfig> _levelConfigBySceneName;
-        public static ConfigService Instance => _instance;
-
-        private void Awake()
-        {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
 
         public void Bootstrap()
         {

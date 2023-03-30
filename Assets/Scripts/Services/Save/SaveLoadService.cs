@@ -1,41 +1,31 @@
 ﻿using System.Collections.Generic;
 using Game;
 using Services.Persistente;
-using UnityEngine;
 
 namespace Services.Save
 {
-    public class SaveLoadService : MonoBehaviour
+    public class SaveLoadService : ISaveLoadService
     {
-        private static SaveLoadService _instance;
+        private IPersistenceService _persistenceService;
         private readonly List<ISaveLoadDataPiece> _saveLoadDataPieces = new List<ISaveLoadDataPiece>();
 
-        public static SaveLoadService Instance => _instance;
-
-        private void Awake()
+        public SaveLoadService(IPersistenceService persistenceService)
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
+            _persistenceService = persistenceService;
         }
-
+        
         public void Save()
         {
             foreach (ISaveLoadDataPiece saveLoadDataPiece in _saveLoadDataPieces)
-                saveLoadDataPiece.Save(PersistenceService.Instance.Data);
+                saveLoadDataPiece.Save(_persistenceService.Data);
             
-            PersistenceService.Instance.Save();
+            _persistenceService.Save();
         }
 
         public void Load()
         {
             foreach (ISaveLoadDataPiece saveLoadDataPiece in _saveLoadDataPieces)
-                saveLoadDataPiece.Load(PersistenceService.Instance.Data);
+                saveLoadDataPiece.Load(_persistenceService.Data);
         }
 
         public void AddSaveLoadPiece(ISaveLoadDataPiece piece) =>
