@@ -10,7 +10,7 @@ namespace P3D.Game
         [SerializeField] private Transform _toTransform;
 
         [Header("Initial Settings")]
-        [SerializeField] private bool _needPlayOnStart = true;
+        //[SerializeField] private bool _needPlayOnStart = true;
 
         [Header("Animation Settings")]
         [SerializeField] protected float _delayPosition = 1f;

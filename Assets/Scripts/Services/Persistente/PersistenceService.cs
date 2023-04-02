@@ -11,12 +11,12 @@ namespace Services.Persistente
 
         public PersistenceService()
         {
-            Debug.LogError($"Persistant Service");
+            Debug.LogWarning($"Persistant Service");
         }
 
         public void Bootstrap()
         {
-            Debug.LogError($"Persistant Bootstrap");
+            Debug.LogWarning($"Persistant Bootstrap");
             string json = PlayerPrefs.GetString(DataSaveKey);
             if (string.IsNullOrEmpty(json))
             {
@@ -30,7 +30,7 @@ namespace Services.Persistente
                 }
                 catch (Exception e)
                 {
-                    Debug.Log($"[{Tag},[{nameof(Bootstrap)}Can't deserialize data.Exception {e}]");
+                    Debug.LogWarning($"[{Tag},[{nameof(Bootstrap)}Can't deserialize data.Exception {e}]");
                     Data = new PersistenceData();
                 }
             }

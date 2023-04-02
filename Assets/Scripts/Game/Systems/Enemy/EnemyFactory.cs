@@ -27,7 +27,7 @@ namespace Game.Systems.Enemy
             enemyHp.Current = enemyConfig.CurrentHp;
             enemyHp.Max = enemyConfig.MaxHp;
             return enemy;
-            return null;
+            //return null;
         }
 
         public GameObject CreateSpawner(string id, EnemyType enemyType, Vector3 position)
