@@ -6,16 +6,12 @@ namespace Services.Forecast
     {
         [JsonProperty("name")]
         public string Name;
-        
         [JsonProperty("dt")]
         public int DateTimeSince;
-        
         [JsonProperty("weather")]
         public WeatherDTO[] WeatherArray;
-        
         [JsonProperty("main")]
         public MainDTO MainDto;
-        
         [JsonProperty("wind")]
         public WindDTO WindDto;
 

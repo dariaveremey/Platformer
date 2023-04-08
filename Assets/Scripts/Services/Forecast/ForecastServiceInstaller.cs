@@ -8,9 +8,9 @@ namespace Services.Forecast
         [SerializeField] private ForecastUiModuleSettings _moduleSettings;
         public override void InstallBindings()
         {
-            Container.Bind<ForecastWebModule>().FromNewComponentOnNewGameObject().AsSingle();
+            Container.Bind<ForecastWebModule>().AsSingle();
             Container.Bind<IForecastService>().To<ForecastService>().AsSingle();
-            
+            Container.Bind<ForecastDataMapper>().AsSingle();
             Container.Bind<ForecastUiModule>().AsSingle();
             Container.BindInstance(_moduleSettings);
         }
