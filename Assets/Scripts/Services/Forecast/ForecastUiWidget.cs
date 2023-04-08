@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Services.Forecast.UI;
+using Services.UI;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 using Zenject;
 
 namespace Services.Forecast
@@ -12,12 +12,14 @@ namespace Services.Forecast
         [SerializeField] private Button _button;
         
         private IForecastService _forecastService;
+        private IUiService _uiService;
         private bool _isShowed;
 
         [Inject]
-        public void Construct(IForecastService forecastService)
+        public void Construct(IForecastService forecastService,IUiService uiService)
         {
             _forecastService = forecastService;
+            _uiService = uiService;
         }
 
         private void Start()
@@ -41,9 +43,11 @@ namespace Services.Forecast
         {
             _isShowed = !_isShowed;
             if (_isShowed)
-                _forecastService.ShowScreen();
+            {
+                _uiService.ShowScreen<ForecastScreenController>();
+            }
             else
-                _forecastService.HideScreen();
+                _uiService.HideScreen<ForecastScreenController>();
         }
     }
 }

@@ -6,19 +6,17 @@ namespace Services.Forecast
     public class ForecastService : IForecastService
     {
         private readonly ForecastWebModule _forecastWebModule;
-        private readonly ForecastUiModule _uiModule;
         private readonly ForecastDataMapper _dataMapper;
 
-        public ForecastService(ForecastWebModule forecastWebModule, ForecastUiModule uiModule, ForecastDataMapper forecastDataMapper)
+        public ForecastService(ForecastWebModule forecastWebModule, ForecastDataMapper forecastDataMapper)
         {
             _forecastWebModule = forecastWebModule;
-            _uiModule = uiModule;
             _dataMapper = forecastDataMapper;
         }
 
         public event Action OnReady;
         public bool IsReady { get; private set; }
-        private ForecastData Data { get; set; }
+        public ForecastData Data { get; private set; }
 
         public void LoadData(Action completeCallback)
         {
@@ -36,23 +34,6 @@ namespace Services.Forecast
                 completeCallback?.Invoke();
             });
         }
-
-        public void ShowScreen()
-        {
-            if (!IsReady)
-                return;
-            _uiModule.ShowScreen(Data);
-            {
-                Debug.Log($"ShowScreen");
-            }
-        }
-
-        public void HideScreen()
-        {
-            if (!IsReady)
-                return;
-            _uiModule.HideScreen();
-            Debug.Log($"HideScreen");
-        }
+        
     }
 }
