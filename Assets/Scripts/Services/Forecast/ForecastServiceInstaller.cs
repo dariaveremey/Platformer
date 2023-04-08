@@ -8,11 +8,20 @@ namespace Services.Forecast
         [SerializeField] private ForecastUiModuleSettings _moduleSettings;
         public override void InstallBindings()
         {
-            Container.Bind<ForecastWebModule>().AsSingle();
-            Container.Bind<IForecastService>().To<ForecastService>().AsSingle();
-            Container.Bind<ForecastDataMapper>().AsSingle();
-            Container.Bind<ForecastUiModule>().AsSingle();
-            Container.BindInstance(_moduleSettings);
+            Container.Bind<IForecastService>()
+                .FromSubContainerResolve()
+                .ByMethod(InstallService)
+                .AsSingle();
+        }
+
+        private void InstallService(DiContainer subContainer)
+        {
+            subContainer.Bind<IForecastService>().To<ForecastService>().AsSingle();
+            
+            subContainer.Bind<ForecastWebModule>().AsSingle();
+            subContainer.Bind<ForecastDataMapper>().AsSingle();
+            subContainer.Bind<ForecastUiModule>().AsSingle();
+            subContainer.BindInstance(_moduleSettings);
         }
     }
 }

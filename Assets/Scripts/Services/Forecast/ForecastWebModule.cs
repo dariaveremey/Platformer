@@ -1,7 +1,7 @@
 ﻿using System;
 using Services.Location;
 using Services.Web;
-
+using UnityEngine;
 
 namespace Services.Forecast
 {
@@ -22,6 +22,7 @@ namespace Services.Forecast
 
         public void LoadData(Action<bool, ForecastDTO> completedCallback)
         {
+            Debug.LogError($"Forecast");
             if (!_locationService.IsValid)
             {
                 completedCallback?.Invoke(false, null);
